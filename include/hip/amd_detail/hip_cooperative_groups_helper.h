@@ -33,18 +33,11 @@ THE SOFTWARE.
 
 #if __cplusplus
 #if !defined(__HIPCC_RTC__)
+#include <hip/amd_detail/amd_hip_runtime.h> // threadId, blockId
 #include <hip/amd_detail/amd_device_functions.h>
 #endif
 #if !defined(__align__)
 #define __align__(x) __attribute__((aligned(x)))
-#endif
-
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreserved-macro-identifier"
-#pragma clang diagnostic ignored "-Wc++98-compat"
-#pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
-#pragma clang diagnostic ignored "-Wshorten-64-to-32"
 #endif
 
 #if !defined(__CG_QUALIFIER__)
@@ -195,11 +188,15 @@ __CG_STATIC_QUALIFIER__ uint32_t thread_rank() {
 }
 
 __CG_STATIC_QUALIFIER__ bool is_valid() {
-  // TODO(mahesha) any functionality need to be added here? I believe not
   return true;
 }
 
 __CG_STATIC_QUALIFIER__ void sync() { __syncthreads(); }
+
+__CG_STATIC_QUALIFIER__ dim3 block_dim() {
+  return (dim3(static_cast<uint32_t>(blockDim.x), static_cast<uint32_t>(blockDim.y),
+          static_cast<uint32_t>(blockDim.z)));
+}
 
 }  // namespace workgroup
 
@@ -240,9 +237,6 @@ __CG_STATIC_QUALIFIER__ unsigned int masked_bit_count(lane_mask x, unsigned int 
 /**
 *  @}
 */
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
 
 #endif  // __cplusplus
 #endif  // HIP_INCLUDE_HIP_AMD_DETAIL_HIP_COOPERATIVE_GROUPS_HELPER_H

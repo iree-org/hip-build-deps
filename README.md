@@ -11,8 +11,8 @@ The include diretory here is collapsed from:
 
 Current versions:
 
-* HIP: 9cb358b157c45c05d4a1c98ef3d1cb5b840d9385
-* clr: 5914ac3c6e9b3848023a7fa25e19e560b1c38541
+* HIP: f83941ea9a923740c18f7fb91a59e137b931e0c6
+* clr: 49037b976298a4238fe31bd178483ffc09010319
 
 ## Local Patches
 
